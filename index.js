@@ -1,9 +1,10 @@
 const authUser = require("./api/auth.js");
-const URL =
-    "https://api.staging.payfone.com/mobileauth/2014/07/01/authenticateByRedirect";
-const API_KEY = "JFTmFXW431gN757aPSTG";
-const BASE_REQUEST_ID = "CONSCIENCE-";
-const COLLECTION_STATUS = "notCollected";
+const {
+    URL,
+    API_KEY,
+    BASE_REQUEST_ID,
+    COLLECTION_STATUS
+} = require("./const/api.js");
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -34,7 +35,6 @@ http methods https://restfulapi.net/http-methods/
 */
 
 app.post("/api/v1/auth", async (req, res) => {
-    console.log("HIT!")
     try {
         if ((req.connection.remoteIp, req.body.targetUrl)) {
             let authData = await authUser(URL, {
