@@ -1,10 +1,10 @@
-const authUser = require("./api/auth");
+const authUser = require("./api/auth.js");
 const {
     URL,
     API_KEY,
     BASE_REQUEST_ID,
     COLLECTION_STATUS
-} = require("./const/api");
+} = require("./const/api.js");
 
 const express = require("express");
 const bodyParser = require("body-parser");
