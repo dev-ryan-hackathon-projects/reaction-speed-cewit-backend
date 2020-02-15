@@ -1,10 +1,9 @@
 const authUser = require("./api/auth.js");
-const {
-    URL,
-    API_KEY,
-    BASE_REQUEST_ID,
-    COLLECTION_STATUS
-} = require("./const/api.js");
+const URL =
+    "https://api.staging.payfone.com/mobileauth/2014/07/01/authenticateByRedirect";
+const API_KEY = "JFTmFXW431gN757aPSTG";
+const BASE_REQUEST_ID = "CONSCIENCE-";
+const COLLECTION_STATUS = "notCollected";
 
 const express = require("express");
 const bodyParser = require("body-parser");
