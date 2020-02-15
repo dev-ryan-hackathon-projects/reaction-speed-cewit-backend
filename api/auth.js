@@ -6,7 +6,7 @@ async function authUser(url = "", data = {}) {
         url: url,
         data: data
     });
-    return await response.json(); // parses JSON response into native JavaScript objects
+    return await response.data; // parses JSON response into native JavaScript objects
 }
 
 module.exports = authUser;
