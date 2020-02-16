@@ -77,7 +77,7 @@ app.post("/api/v1/confAuth", async (req, res) => {
                         .substr(0, 32),
                 VerificationFingerprint: req.body.vfp
             });
-            res.status(201); //change this for a 200 with user id thats hashed with the payfone id
+            res.status(201).send(authData.Response.PayfoneAlias); //change this for a 200 with user id thats hashed with the payfone id
         } else {
             res.status(402);
         }
@@ -85,6 +85,10 @@ app.post("/api/v1/confAuth", async (req, res) => {
         res.status(503).send(e);
     }
 });
+
+app.get("/api/v1/concussionScore", async () => {});
+
+app.post("/api/v1/testResults", async () => {});
 
 const PORT = process.env.PORT || 8080;
 
