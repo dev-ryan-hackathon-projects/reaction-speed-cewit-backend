@@ -1,6 +1,7 @@
 const authUser = require("./api/auth.js");
 const {
-    URL,
+    REDIRECT_FINAL_URL,
+    REDIRECT_URL,
     API_KEY,
     BASE_REQUEST_ID,
     COLLECTION_STATUS
@@ -35,11 +36,10 @@ http methods https://restfulapi.net/http-methods/
 */
 
 app.post("/api/v1/auth", async (req, res) => {
-    var ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
     try {
         let ip = req.headers["x-forwarded-for"];
         if (ip && req.body.targetUrl) {
-            let authData = await authUser(URL, {
+            let authData = await authUser(REDIRECT_URL, {
                 RequestId:
                     BASE_REQUEST_ID +
                     Math.random()
@@ -65,10 +65,26 @@ app.post("/api/v1/auth", async (req, res) => {
     }
 });
 
-// app.get("/api/v1/ip", async (req, res) => {
-//     var ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
-//     res.send(ip);
-// });
+app.post("/api/v1/confAuth", async (req, res) => {
+    try {
+        if (req.body.vfp) {
+            let authData = await finishAuth(REDIRECT_FINAL_URL, {
+                ApiClientId: API_KEY,
+                RequestId:
+                    BASE_REQUEST_ID +
+                    Math.random()
+                        .toString(36)
+                        .substr(0, 32),
+                VerificationFingerprint: req.body.vfp
+            });
+            res.status(201); //change this for a 200 with user id thats hashed with the payfone id
+        } else {
+            res.status(402);
+        }
+    } catch (e) {
+        res.status(503).send(e);
+    }
+});
 
 const PORT = process.env.PORT || 8080;
 
