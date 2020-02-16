@@ -38,8 +38,9 @@ http methods https://restfulapi.net/http-methods/
 
 app.post("/api/v1/auth", async (req, res) => {
     try {
+        let ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
         console.log(req.ip, req.body.targetUrl);
-        if (req.ip && req.body.targetUrl) {
+        if (ip && req.body.targetUrl) {
             let authData = await authUser(URL, {
                 RequestId:
                     BASE_REQUEST_ID +
@@ -48,7 +49,7 @@ app.post("/api/v1/auth", async (req, res) => {
                         .substr(0, 32),
                 ApiClientId: API_KEY,
                 FinalTargetUrl: req.body.targetUrl,
-                DeviceIp: req.connection.remoteIp,
+                DeviceIp: ip,
                 ConsentStatus: COLLECTION_STATUS
             });
             if (authData.status !== 0) {
@@ -67,7 +68,7 @@ app.post("/api/v1/auth", async (req, res) => {
 });
 
 app.get("/api/v1/ip", async (req, res) => {
-    var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    var ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
     res.send(ip);
 });
 
