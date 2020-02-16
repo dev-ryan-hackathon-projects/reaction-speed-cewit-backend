@@ -66,6 +66,10 @@ app.post("/api/v1/auth", async (req, res) => {
     }
 });
 
+app.get("/api/v1/ip", async (req, res) => {
+    res.send(res.ip);
+});
+
 const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, () => console.log(`Server started, listening on ${PORT}`));
