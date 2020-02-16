@@ -1,10 +1,10 @@
-const authUser = require("./api/auth");
+const authUser = require("./api/auth.js");
 const {
     URL,
     API_KEY,
     BASE_REQUEST_ID,
     COLLECTION_STATUS
-} = require("./const/api");
+} = require("./const/api.js");
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -49,12 +49,12 @@ app.post("/api/v1/auth", async (req, res) => {
                 ConsentStatus: COLLECTION_STATUS
             });
             if (authData.status != 0) {
-                res.status(503).send(authData);
+                res.status(401).send(authData);
             } else {
-                res.status(200).send(authData);
+                res.status(302).send(authData);
             }
         } else {
-            res.status(402).json(res);
+            res.status(401).json(res);
         }
     } catch (e) {
         console.log(e);
