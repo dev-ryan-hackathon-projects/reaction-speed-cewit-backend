@@ -19,5 +19,5 @@ async function finishAuth(url = "", data = {}) {
     return await response.data;
 }
 
-module.exports = authUser;
-module.exports = finishAuth;
+exports.authUser = authUser;
+exports.finishAuth = finishAuth;
