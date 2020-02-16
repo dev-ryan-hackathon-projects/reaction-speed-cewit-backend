@@ -15,6 +15,7 @@ async function finishAuth(url = "", data = {}) {
         url: url,
         data: data
     });
+    console.log(response.data);
     return await response.data;
 }
 
