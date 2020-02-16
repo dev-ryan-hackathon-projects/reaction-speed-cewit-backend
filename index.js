@@ -1,4 +1,4 @@
-const authUser = require("./api/auth.js");
+const {authUser, finishAuth} = require("./api/auth.js");
 const {
     REDIRECT_FINAL_URL,
     REDIRECT_URL,
@@ -82,7 +82,7 @@ app.post("/api/v1/confAuth", async (req, res) => {
             res.status(402);
         }
     } catch (e) {
-        console.log(e)
+        console.log(e);
         res.status(503).send(e);
     }
 });
