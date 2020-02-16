@@ -36,34 +36,33 @@ http methods https://restfulapi.net/http-methods/
 
 app.post("/api/v1/auth", async (req, res) => {
     var ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
-    res.send(ip);
-    // try {
-    //     let ip = req.headers["x-forwarded-for"];
-    //     if (ip && req.body.targetUrl) {
-    //         let authData = await authUser(URL, {
-    //             RequestId:
-    //                 BASE_REQUEST_ID +
-    //                 Math.random()
-    //                     .toString(36)
-    //                     .substr(0, 32),
-    //             ApiClientId: API_KEY,
-    //             FinalTargetUrl: req.body.targetUrl,
-    //             DeviceIp: ip,
-    //             ConsentStatus: COLLECTION_STATUS
-    //         });
-    //         if (authData.status !== 0) {
-    //             res.status(401).send(authData);
-    //         } else {
-    //             res.status(302).send(authData);
-    //         }
-    //     } else {
-    //         res.status(401).json(res);
-    //     }
-    // } catch (e) {
-    //     console.log(e);
-    //     let response = { message: "failed", error: e };
-    //     res.status(503).json(response);
-    // }
+    try {
+        let ip = req.headers["x-forwarded-for"];
+        if (ip && req.body.targetUrl) {
+            let authData = await authUser(URL, {
+                RequestId:
+                    BASE_REQUEST_ID +
+                    Math.random()
+                        .toString(36)
+                        .substr(0, 32),
+                ApiClientId: API_KEY,
+                FinalTargetUrl: req.body.targetUrl,
+                DeviceIp: ip,
+                ConsentStatus: COLLECTION_STATUS
+            });
+            if (authData.status !== 0) {
+                res.status(401).send(authData);
+            } else {
+                res.status(302).send(authData);
+            }
+        } else {
+            res.status(401).json(res);
+        }
+    } catch (e) {
+        console.log(e);
+        let response = { message: "failed", error: e };
+        res.status(503).json(response);
+    }
 });
 
 // app.get("/api/v1/ip", async (req, res) => {
