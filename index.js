@@ -17,6 +17,8 @@ app.use(bodyParser.json());
 
 app.use(cors());
 
+app.set("trust proxy", true);
+
 /*
 app.post('url path here', async (requestObject, responseObject) => {
     try{
@@ -36,8 +38,8 @@ http methods https://restfulapi.net/http-methods/
 
 app.post("/api/v1/auth", async (req, res) => {
     try {
-        console.log(req.connection.remoteIp, req.body.targetUrl);
-        if (req.connection.remoteIp && req.body.targetUrl) {
+        console.log(req.ip, req.body.targetUrl);
+        if (req.ip && req.body.targetUrl) {
             let authData = await authUser(URL, {
                 RequestId:
                     BASE_REQUEST_ID +
@@ -49,7 +51,7 @@ app.post("/api/v1/auth", async (req, res) => {
                 DeviceIp: req.connection.remoteIp,
                 ConsentStatus: COLLECTION_STATUS
             });
-            if (authData.status != 0) {
+            if (authData.status !== 0) {
                 res.status(401).send(authData);
             } else {
                 res.status(302).send(authData);
