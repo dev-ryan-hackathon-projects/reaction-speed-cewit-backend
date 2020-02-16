@@ -67,7 +67,8 @@ app.post("/api/v1/auth", async (req, res) => {
 });
 
 app.get("/api/v1/ip", async (req, res) => {
-    res.send(res.ip);
+    var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    res.send(ip);
 });
 
 const PORT = process.env.PORT || 8080;
