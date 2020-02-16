@@ -6,6 +6,7 @@ async function authUser(url = "", data = {}) {
         url: url,
         data: data
     });
+    console.log(response)
     return await response.data; // parses JSON response into native JavaScript objects
 }
 

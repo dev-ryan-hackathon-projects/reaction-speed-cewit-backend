@@ -36,7 +36,8 @@ http methods https://restfulapi.net/http-methods/
 
 app.post("/api/v1/auth", async (req, res) => {
     try {
-        if ((req.connection.remoteIp, req.body.targetUrl)) {
+        console.log(req.connection.remoteIp, req.body.targetUrl);
+        if (req.connection.remoteIp && req.body.targetUrl) {
             let authData = await authUser(URL, {
                 RequestId:
                     BASE_REQUEST_ID +
