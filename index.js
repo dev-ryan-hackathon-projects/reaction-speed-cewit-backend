@@ -49,12 +49,12 @@ app.post("/api/v1/auth", async (req, res) => {
                 ConsentStatus: COLLECTION_STATUS
             });
             if (authData.status != 0) {
-                res.status(503).send(authData);
+                res.status(401).send(authData);
             } else {
-                res.status(200).send(authData);
+                res.status(302).send(authData);
             }
         } else {
-            res.status(402).json(res);
+            res.status(401).json(res);
         }
     } catch (e) {
         console.log(e);
